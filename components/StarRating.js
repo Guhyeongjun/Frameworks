@@ -1,24 +1,20 @@
-// src/components/StarRating.js
+
 import {useState} from "react";
-import Star from "./Star.js";
+import Star from "./Star.js"
 
 const createArray=length=>[...Array(length)]
 
-/* useState 훅이 반환하는 배열의 두 번째 요소는 상태
-  값을 변경할 때 쓸 수 있는 함수
-*/
+/* 상태가 없는 컴포넌트를 순수 컴포넌트라고 합니다 */
 
-
-export default function StarRating({totalStars=5}){
-    const [selectedStars,setSelectedStars]=useState(3);
+export default function StarRating({totalStars=5,selectedStars=0,onRate=f=>f}){
     return <>
       {createArray(totalStars).map((n,i)=>
         <Star 
             key={i} 
-            selected={selectedStars>i}
-            onSelect={f=>f} 
+            selected={selectedStars>i} 
+            onSelect={()=>{onRate(i)}}
         />
       )}
-      <p>{selectedStars} of {totalStars} stars</p>
+      <p class="star-text">{selectedStars} of {totalStars} stars</p>
     </>
 }
